@@ -29,8 +29,15 @@
       return alive(u).then(function (ok) { if (ok) open(u); return ok; });
     }).catch(function () { return false; }).then(function (ok) { if (!ok && !done) setTimeout(go, 1500); });
   }
+  // same PC as Tikstudio (TikTok LIVE Studio / OBS on this computer) → open the program directly, no internet needed
+  function local() {
+    var ports = [5000, 5001, 5002, 5003, 5004, 5005, 5006, 5007, 5008, 5009, 5010];
+    ports.forEach(function (pt) { var u = 'http://127.0.0.1:' + pt; alive(u).then(function (ok) { if (ok) open(u); }); });
+  }
+  local();
   fast();
   go();
+  setInterval(function () { if (!done) local(); }, 4000);
 })();
 </script>
 </body></html>
